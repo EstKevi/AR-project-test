@@ -17,9 +17,13 @@ public class Banner : MonoBehaviour
     [SerializeField] private WriteText writeText;
     [SerializeField] private float writeDuration = 20;
     [SerializeField] private TextAsset textAsset;
+    [Header("sound")] 
+    [SerializeField] private AudioClip sound;
+    private AudioSource audioSource;
 
-    private bool useAnimation;
     private CancellationTokenSource cts = new();
+    
+    private bool useAnimation;
 
     public Transform FollowObject
     {
@@ -72,10 +76,8 @@ public class Banner : MonoBehaviour
         }
 
         writeText.Write(writeDuration, textAsset);
-        
-        if(useAnimation is false) return;
-        
-        moveAnimation.StartAnimationMove();
+
+        if (useAnimation) moveAnimation.StartAnimationMove();
     }
 
     public void Hide()
@@ -89,8 +91,6 @@ public class Banner : MonoBehaviour
             sho.enabled = false;
         }
 
-        if(useAnimation is false) return;
-        
-        moveAnimation.StopAnimation();
+        if (useAnimation) moveAnimation.StopAnimation();
     }
 }
